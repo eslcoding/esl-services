@@ -1,38 +1,91 @@
 .App {
   text-align: center;
+  position: relative;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.options {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  /* text-align: start;
+  justify-content: center; */
+  /* justify-content: flex-start; */
 }
 
-.App-link {
-  color: #61dafb;
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  padding-bottom: 2%;
+  display: flex;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.esl-logo-img {
+  /* width: 60%; */
+  height: 100px;
+}
+
+.contact-us-p {
+  font-size: 16px;
+  margin: 0;
+  align-self: flex-end;
+}
+.unsubscribe-buttons {
+  display: flex;
+  flex-direction: column;
+}
+.add-button {
+  width: 180px;
+  align-self: center;
+  margin-top: 1%;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  padding: 8px 20px;
+  border: 1px solid #006acc;
+  border-radius: 4px;
+  background: linear-gradient(to bottom, #00acff, #006acc);
+  text-shadow: #004280 1px 1px 1px;
+  font: normal normal bold 20px arial;
+  color: #ffffff;
+  text-decoration: none;
+  min-width: 61px;
+}
+
+.add-button.checkout {
+  align-self: flex-start;
+}
+
+.add-button:hover,
+.add-button:focus {
+  border: 1px solid #0084ff;
+  background: #00ceff;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#00ceff),
+    to(#007ff5)
+  );
+  background: -moz-linear-gradient(top, #00ceff, #007ff5);
+  background: linear-gradient(to bottom, #00ceff, #007ff5);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.add-button:active {
+  background: #006acc;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#006acc),
+    to(#006acc)
+  );
+  background: -moz-linear-gradient(top, #006acc, #006acc);
+  background: linear-gradient(to bottom, #006acc, #006acc);
+}
+.add-button:disabled {
+  background: gray !important;
+  cursor: default;
 }
