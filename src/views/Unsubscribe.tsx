@@ -103,14 +103,6 @@ export default function Unsubscribe() {
       </div>
 
       <div className="unsubscribe-buttons">
-        <button
-          className="add-button"
-          onClick={(e) =>
-            userEmail && addinService.unsubscribe(userEmail, options)
-          }
-        >
-          Save Changes
-        </button>
         <p>
           <input
             //   className="add-button"
@@ -123,6 +115,14 @@ export default function Unsubscribe() {
           />
           Remove all Email subscriptions
         </p>
+        <button
+          className="add-button"
+          onClick={(e) =>
+            userEmail && addinService.unsubscribe(userEmail, options)
+          }
+        >
+          Save Changes
+        </button>
       </div>
     </>
   );

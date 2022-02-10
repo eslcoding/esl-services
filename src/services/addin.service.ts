@@ -17,7 +17,7 @@ export async function unsubscribe(
 export async function getUsersSubscriptions(userEmail: string) {
   const res: AxiosResponse = await axios.get(
     // `http://localhost:3030/api/user/${userEmail}`
-    `https://monday-outlook/herokuapp.com/api/user/${userEmail}`
+    `https://monday-outlook/herokuapp.com/api/user/subscription/${userEmail}`
   );
   return res.data;
 }

@@ -10,7 +10,10 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/unsubscribe/:userEmail" element={<Unsubscribe />} />
+          <Route
+            path="/emailPreferences/:userEmail"
+            element={<Unsubscribe />}
+          />
         </Routes>
         <Footer />
       </BrowserRouter>
