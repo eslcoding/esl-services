@@ -1,24 +1,72 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { unsubscribe } from "../services/addin.service";
+import * as addinService from "../services/addin.service";
+type user = {
+  userEmail: string;
+  token: string;
+  userDomain: string;
+  registerDate: Date;
+  expirationDate: Date;
+  license: string;
+  userType: string;
+  lastVisited: Date;
+  isSignedOut: boolean;
+  startItem: null | object;
+  company: string;
+  settings: object;
+  isEndingLicense: boolean;
+  apiKey: string;
+  numOfUsers: number;
+  renewalSent: {
+    twenty: boolean;
+    five: boolean;
+    timeStamp: number;
+  };
+  subscription: {
+    renewal: boolean;
+    features: boolean;
+    promotions: boolean;
+  };
+};
 export default function Unsubscribe() {
-  const { userEmail } = useParams();
+  const [user, setUser]: [undefined | user, Function] = useState();
   const [options, setOptions] = useState({
     renewal: true,
     features: true,
     promotions: true,
   });
+  const { userEmail } = useParams();
+  useEffect(() => {
+    if (userEmail) {
+      getUser();
+    }
+  }, [userEmail]);
+  useEffect(() => {
+    if (user) {
+      if (user.subscription) {
+        const { renewal, features, promotions } = user?.subscription;
+        setOptions({ renewal, features, promotions });
+      }
+    }
+  }, [user]);
+  const getUser = async () => {
+    const _user = await addinService.getUsersSubscriptions(userEmail!);
+    setUser(_user);
+  };
   const onSetOptions = (
     e: React.ChangeEvent<HTMLInputElement>,
-    all: Boolean
+    all: boolean
   ) => {
-    setOptions({ ...options, [e.target.name]: e.target.checked });
-    if (all)
+    console.log(`Unsubscribe -> all`, all);
+    if (all) {
       setOptions({
-        renewal: e.target.checked,
-        features: e.target.checked,
-        promotions: e.target.checked,
+        renewal: false,
+        features: false,
+        promotions: false,
       });
+    } else {
+      setOptions({ ...options, [e.target.name]: e.target.checked });
+    }
   };
   return (
     <>
@@ -58,25 +106,23 @@ export default function Unsubscribe() {
         <button
           className="add-button"
           onClick={(e) =>
-            setOptions(
-              !options.features && !options.promotions && !options.renewal
-                ? { features: true, renewal: true, promotions: true }
-                : { features: false, renewal: false, promotions: false }
-            )
+            userEmail && addinService.unsubscribe(userEmail, options)
           }
-          name="promotions"
-        >
-          {!options.features && !options.promotions && !options.renewal
-            ? "Approve"
-            : "Remove"}{" "}
-          all Email subscriptions
-        </button>
-        <button
-          className="add-button"
-          onClick={(e) => unsubscribe(userEmail!, options)}
         >
           Save Changes
         </button>
+        <p>
+          <input
+            //   className="add-button"
+            type="checkbox"
+            onChange={(e) => onSetOptions(e, true)}
+            checked={
+              !options.features && !options.promotions && !options.renewal
+            }
+            name="all"
+          />
+          Remove all Email subscriptions
+        </p>
       </div>
     </>
   );
