@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import eslLogo from "../assets/esl_logo1.jpg";
+import eslLogo from "../assets/471x172px.png";
 
 const Footer = () => {
   return (

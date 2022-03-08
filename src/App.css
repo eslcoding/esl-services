@@ -35,6 +35,7 @@
 .unsubscribe-buttons {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .add-button {
   width: 180px;
@@ -90,4 +91,13 @@
 .add-button:disabled {
   background: gray !important;
   cursor: default;
+}
+.input {
+  padding-left: 25px;
+  padding-right: 25px;
+  border: 0;
+  border-bottom: 1px solid black;
+  font-size: 1.05em;
+  background-color: transparent;
+  width: 30vw;
 }

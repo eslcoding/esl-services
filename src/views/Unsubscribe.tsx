@@ -1,35 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ReactElement } from "react";
 import { useParams } from "react-router";
+import { User } from "../App";
 import * as addinService from "../services/addin.service";
-type user = {
-  userEmail: string;
-  token: string;
-  userDomain: string;
-  registerDate: Date;
-  expirationDate: Date;
-  license: string;
-  userType: string;
-  lastVisited: Date;
-  isSignedOut: boolean;
-  startItem: null | object;
-  company: string;
-  settings: object;
-  isEndingLicense: boolean;
-  apiKey: string;
-  numOfUsers: number;
-  renewalSent: {
-    twenty: boolean;
-    five: boolean;
-    timeStamp: number;
-  };
-  subscription: {
-    renewal: boolean;
-    features: boolean;
-    promotions: boolean;
-  };
-};
-export default function Unsubscribe() {
-  const [user, setUser]: [undefined | user, Function] = useState();
+interface Props {
+  getUser: (email: string) => Promise<void>;
+  user: User | undefined;
+}
+export default function Unsubscribe({ getUser, user }: Props): ReactElement {
+  console.log(`Unsubscribe -> user`, user);
   const [options, setOptions] = useState({
     renewal: true,
     features: true,
@@ -37,10 +15,10 @@ export default function Unsubscribe() {
   });
   const { userEmail } = useParams();
   useEffect(() => {
-    if (userEmail) {
-      getUser();
+    if (userEmail && !user) {
+      getUser(userEmail);
     }
-  }, [userEmail]);
+  }, [userEmail, user]);
   useEffect(() => {
     if (user) {
       if (user.subscription) {
@@ -49,10 +27,6 @@ export default function Unsubscribe() {
       }
     }
   }, [user]);
-  const getUser = async () => {
-    const _user = await addinService.getUsersSubscriptions(userEmail!);
-    setUser(_user);
-  };
   const onSetOptions = (
     e: React.ChangeEvent<HTMLInputElement>,
     all: boolean
