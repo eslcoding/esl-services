@@ -15,7 +15,6 @@ export default function Unsubscribe({
 }: Props): ReactElement {
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  //todo: add "return to home" btn, add userEmail in page, add sweet alerts
   console.log(`Unsubscribe -> user`, user);
   const [options, setOptions] = useState({
     renewal: true,
