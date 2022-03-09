@@ -8,16 +8,19 @@ export async function unsubscribe(
   }
 ): Promise<AxiosResponse> {
   const res: AxiosResponse = await axios.post(
-    // `http://localhost:3030/api/user/unsubscribe/${userEmail}`,
-    `https://monday-outlook/herokuapp.com/api/user/unsubscribe/${userEmail}`,
+    process.env.NODE_ENV === "development"
+      ? `http://localhost:3030/api/user/subscription/${userEmail}`
+      : `https://monday-outlook/herokuapp.com/api/user/subscription/${userEmail}`,
     { options }
   );
   return res.data;
 }
 export async function getUsersSubscriptions(userEmail: string) {
   const res: AxiosResponse = await axios.get(
-    // `http://localhost:3030/api/user/${userEmail}`
-    `https://monday-outlook/herokuapp.com/api/user/subscription/${userEmail}`
+    process.env.NODE_ENV === "development"
+      ? `http://localhost:3030/api/user/${userEmail}`
+      : `https://monday-outlook/herokuapp.com/api/user/${userEmail}`
   );
-  return res.data;
+  if (res.data) return res.data;
+  else return;
 }

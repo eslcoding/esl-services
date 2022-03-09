@@ -54,7 +54,9 @@
   text-decoration: none;
   min-width: 61px;
 }
-
+.add-button:hover {
+  cursor: pointer;
+}
 .add-button.checkout {
   align-self: flex-start;
 }
